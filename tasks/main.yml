@@ -1,0 +1,21 @@
+---
+- name: check python_app_user
+  fail:
+    msg: python_app_user must be defined
+  when: python_app_user is undefined
+
+- name: check python_app_git_repo
+  fail:
+    msg: python_app_git_repo must be defined
+  when: python_app_git_repo is undefined
+
+- name: Setup tasks
+  include_tasks: setup.yml
+- name: Update tasks
+  include_tasks: update.yml
+- name: Install tasks
+  include_tasks: install.yml
+- name: Link (activate) tasks
+  include_tasks: link.yml
+- name: Cleanup tasks
+  include_tasks: cleanup.yml

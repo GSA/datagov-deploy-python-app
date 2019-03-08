@@ -1,0 +1,8 @@
+---
+- name: link (activate) the deployment
+  file: >-
+    src={{ python_app_deployment_dir }}
+    dest={{ python_app_home }}/current
+    owner={{ python_app_user }}
+    group={{ python_app_user }}
+    state=link

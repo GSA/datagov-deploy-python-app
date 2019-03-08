@@ -1,0 +1,29 @@
+---
+- name: install os packages
+  apt: name={{ ['git', python_app_os_packages] | flatten }} state=present
+
+- name: create python app user
+  user: name={{ python_app_user }} home={{ python_app_home }} system=yes state=present comment="a python application"
+
+- name: create python app home directory
+  file: dest={{ python_app_home }} owner={{ python_app_user }} group={{ python_app_user }} mode=0755 state=directory
+
+- name: install requested python version with pyenv
+  include_role:
+    name: avanov.pyenv
+  vars:
+    pyenv_path: "{{ python_app_home }}/.pyenv"
+    pyenv_owner: "{{ python_app_user }}"
+    pyenv_global: "{{ python_app_python_version }}"
+    pyenv_python_versions: ["{{ python_app_python_version }}"]
+    pyenv_virtualenvs: []
+
+- name: create directory for python app deployments
+  file: dest={{ python_app_home }}/deployments owner={{ python_app_user }} group={{ python_app_user }} mode=0755 state=directory
+
+- name: create directories for this deployment
+  file: dest={{ python_app_deployment_dir }}/{{ item.dest }} mode={{ item.mode }} owner={{ python_app_user }} group={{ python_app_user }} state=directory
+  with_items:
+    - {dest: secrets, mode: "0750"}
+    - {dest: src, mode: "0755"}
+    - {dest: virtualenv, mode: "0755"}

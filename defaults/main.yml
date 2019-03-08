@@ -1,0 +1,9 @@
+---
+python_app_deploy_version: "{{ '%Y%m%d%H%M%S' | strftime(ansible_date_time.epoch) }}"
+python_app_home: /home/{{ python_app_user }}
+python_app_python_version: "3.6.8"
+python_app_requirements_txt: requirements.txt
+python_app_deployments_to_retain: 1
+python_app_version: master
+python_app_git_version: "{{ python_app_version }}"
+python_app_os_packages: []

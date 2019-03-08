@@ -1,0 +1,29 @@
+---
+- name: create env secrets file
+  template: >-
+    src={{ python_app_env_secrets_template }}
+    dest={{ python_app_deployment_dir }}/secrets/env
+    owner={{ python_app_user }}
+    group={{ python_app_user }}
+    mode=0640
+  when: python_app_env_secrets_template is defined
+
+- name: install supervisor configuration
+  template: >-
+    src={{ python_app_supervisor_conf }}
+    dest=/etc/supervisor/conf.d/{{ python_app_user }}
+    owner=root
+    group=root
+    mode=0644
+  when:
+    - python_app_supervisor_conf is defined
+    - ansible_distribution_release == "trusty"
+
+- name: install crontab for python app
+  copy: >-
+    src={{ python_app_crontab }}
+    dest=/etc/cron.d/{{ python_app_user }}
+    owner=root
+    group=root
+    mode=0644
+  when: python_app_crontab is defined

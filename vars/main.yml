@@ -1,0 +1,3 @@
+---
+python_app_deployment_dir: "{{ python_app_home }}/deployments/{{ python_app_deploy_version }}"
+python_app_python_bin: "{{ python_app_home }}/.pyenv/versions/{{ python_app_python_version }}/bin"

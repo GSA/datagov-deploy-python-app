@@ -1,0 +1,4 @@
+---
+- name: Remove previous deployments past retention
+  shell: ls -1dt {{ python_app_home }}/deployments/* | tail -n +{{ python_app_deployments_to_retain | int + 1 }} | xargs rm -rf
+  when: python_app_deployments_to_retain > 0
