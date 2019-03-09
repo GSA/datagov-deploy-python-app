@@ -30,7 +30,8 @@ def test_app_home(host):
 
 def test_app_python(host):
     python = host.file(
-        '/home/%s/.pyenv/versions/%s/bin/python' % (app_user, python_version))
+        '/home/%s/.pyenv/versions/%s/bin/python2.7'
+        % (app_user, python_version))
 
     assert python.exists
     assert python.is_file
@@ -96,7 +97,7 @@ def test_app_virtualenv_dir(host):
 
 
 def test_app_virtualenv_python(host):
-    python = host.file('/home/%s/deployments/%s/virtualenv/bin/python'
+    python = host.file('/home/%s/deployments/%s/virtualenv/bin/python2.7'
                        % (app_user, deployment_version))
 
     assert python.exists

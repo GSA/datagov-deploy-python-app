@@ -6,14 +6,28 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: python-app-trusty
+  - name: python2-app-trusty
     image: ubuntu:trusty
+  - name: python2-app-bionic
+    image: ubuntu:bionic
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
 scenario:
   name: default
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    - side_effect
+    - verify
+    - destroy
 verifier:
   name: testinfra
   lint:
