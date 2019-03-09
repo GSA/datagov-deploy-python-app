@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: datagov-deploy-python-app
+      vars:
+        python_app_user: app
+        python_app_git_repo: https://github.com/GSA/pycsw.git
+        python_app_deploy_version: "20190308132800"
+        python_app_python_version: "3.6.8"
+        python_app_os_packages:
+          - libgeos-dev
