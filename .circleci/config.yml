@@ -4,6 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
     working_directory: ~/datagov-deploy-python-app
     steps:
       - checkout
@@ -15,7 +17,7 @@ jobs:
       - save_cache:
           key: v1-pipenv-{{ checksum "Pipfile.lock" }}
           paths:
-            - ~/.local/share/virtualenvs/venv
+            - .venv
       - setup_remote_docker
       - run: pipenv run molecule test --all
 
