@@ -1,0 +1,5 @@
+---
+- name: reload supervisor
+  command: supervisorctl reread
+  tags:
+    - skip_ansible_lint

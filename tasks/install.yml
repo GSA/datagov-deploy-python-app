@@ -18,6 +18,7 @@
   when:
     - python_app_supervisor_conf is defined
     - ansible_distribution_release == "trusty"
+  notify: reload supervisor
 
 - name: install crontab for python app
   copy: >-
