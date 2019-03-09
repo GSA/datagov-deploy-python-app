@@ -88,9 +88,50 @@ deployments.
 List of OS packages that are needed by your application.
 
 
+#### `python_app_supervisor_programs` list (default: [])
+
+List of supervisor programs to restart after a deployment.
+
+
+## Development
+
+### Requirements
+
+- [Docker](https://www.docker.com/get-started)
+- [Pipenv](https://pipenv.readthedocs.io/en/latest/)
+
+
+### Setup
+
+Pipenv creates a virtualenv for you and installs the python dependencies.
+
+    $ pipenv install
+
+Then you can run commands with pipenv.
+
+    $ pipenv run molecule converge
+
+Or, you can activate the virtualenv in your shell so you don't have to run pipenv
+all the time.
+
+    $ pipenv shell
+
+
+### Run the tests
+
+Run the tests with [molecule](https://molecule.readthedocs.io/en/latest/).
+
+    $ pipenv run molecule test --all
+
+If you're new to molecule, see our
+[wiki](https://github.com/GSA/datagov-deploy/wiki/Developing-Ansible-roles-with-Molecule)
+for a quick primer.
+
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md) for additional information.
+
 
 ## Public domain
 

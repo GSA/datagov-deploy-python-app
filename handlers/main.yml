@@ -1,5 +1,4 @@
 ---
 - name: reload supervisor
-  command: supervisorctl reread
-  tags:
-    - skip_ansible_lint
+  supervisorctl: name={{ item }} state=restarted
+  with_items: "{{ python_app_supervisor_programs }}"

@@ -7,3 +7,4 @@ python_app_deployments_to_retain: 1
 python_app_version: master
 python_app_git_version: "{{ python_app_version }}"
 python_app_os_packages: []
+python_app_supervisor_programs: []
