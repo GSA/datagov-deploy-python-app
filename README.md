@@ -34,6 +34,12 @@ Use the role in your playbook:
     - role: gsa.datagov-deploy-python-app
       vars:
         python_app_user: myapp
+	python_app_python_version: "3.6.8"
+	python_app_supervisor_file: "{{ playbook_dir }}/files/myapp.conf
+
+  tasks:
+    - name: ensure app is started
+      service: name=myapp state=started enabled=true
 ```
 
 
@@ -89,16 +95,25 @@ deployments.
 
 List of OS packages that are needed by your application.
 
+#### `python_app_supervisor_file` string
 
-#### `python_app_supervisor_conf` string
+File path to the supervisor config to template and install. This is usually
+prefixed with `{{ playbook_dir }}` or `{{ role_path }}`.
+
+
+#### `python_app_supervisor_conf_file` string
 
 Path to your supervisor configuration. This should probably be prefixed with
 your playbook directory, e.g. `{{ playbook_dir }}/files/supervisor.conf`.
 
 
-#### `python_app_supervisor_programs` list (default: [])
+#### `python_app_systemd_files` list (default: [])
 
-List of supervisor programs to restart after a deployment.
+List of systemd files to template and install. These are usually prefixed with
+`{{ playbook_dir }}` or `{{ role_path }}`.
+
+
+#### `python_app_supervisor_programs` list (default: [])
 
 
 ## Development

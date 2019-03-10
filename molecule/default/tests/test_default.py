@@ -10,14 +10,6 @@ python_version = '2.7.15'
 deployment_version = '20190308132800'
 
 
-def test_hosts_file(host):
-    f = host.file('/etc/hosts')
-
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
-
-
 def test_app_home(host):
     home = host.file('/home/%s' % app_user)
 

@@ -8,19 +8,43 @@
     mode=0640
   when: python_app_env_secrets_template is defined
 
+- name: copy systemd configuration
+  template: >-
+    src={{ item }}
+    dest=/etc/systemd/system/{{ item | basename }}
+    owner=root
+    group=root
+    mode=0644
+  when:
+    - python_app_systemd_files is defined
+    - ansible_distribution_release != "trusty"
+  notify: reload systemd
+  with_items: "{{ python_app_systemd_files }}"
+
+- name: enable systemd configuration
+  systemd: >-
+    name={{ item | basename}}
+    enabled=true
+  when:
+    - python_app_systemd_files is defined
+    - ansible_distribution_release != "trusty"
+  tags:
+    - notest  # systemd is not started in test
+  with_items: "{{ python_app_systemd_files }}"
+
 - name: install supervisor configuration
   template: >-
-    src={{ python_app_supervisor_conf }}
+    src={{ python_app_supervisor_conf_file }}
     dest=/etc/supervisor/conf.d/{{ python_app_user }}.conf
     owner=root
     group=root
     mode=0644
-  when: python_app_supervisor_conf is defined
+  when: python_app_supervisor_conf_file is defined
   notify: reload supervisor
 
 - name: remove supervisor configuration
   file: path=/etc/supervisor/conf.d/{{ python_app_user }}.conf state=absent
-  when: python_app_supervisor_conf is not defined
+  when: python_app_supervisor_conf_file is not defined
   notify: reload supervisor
 
 - name: install crontab for python app

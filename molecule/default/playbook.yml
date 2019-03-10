@@ -8,6 +8,6 @@
         python_app_git_repo: https://github.com/GSA/pycsw.git
         python_app_deploy_version: "20190308132800"
         python_app_python_version: "2.7.15"
-        python_app_supervisor_conf: "{{ playbook_dir }}/files/supervisor.conf"
+        python_app_supervisor_conf_file: "{{ playbook_dir }}/files/supervisor.conf"
         python_app_os_packages:
           - libgeos-dev

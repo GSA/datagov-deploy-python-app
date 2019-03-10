@@ -1,0 +1,9 @@
+[Unit]
+Description=Load packages from CKAN into PyCSW
+
+[Service]
+Type=oneshot
+ExecStart={{ python_app_deployment_dir }}/virtualenv/bin/pycsw-load.sh
+
+[Install]
+WantedBy=multi-user.target

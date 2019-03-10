@@ -10,3 +10,7 @@
         python_app_python_version: "3.6.8"
         python_app_os_packages:
           - libgeos-dev
+        python_app_systemd_files:
+          - "{{ playbook_dir }}/files/pycsw-load.service"
+        python_app_supervisor_file: "{{ playbook_dir }}/files/pycsw.conf"
+        python_app_crontab: "{{ playbook_dir }}/files/crontab"

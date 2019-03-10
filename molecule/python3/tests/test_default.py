@@ -7,15 +7,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 app_user = 'app'
 python_version = '3.6.8'
+python_major_minor_version = '.'.join(python_version.split('.')[0:2])
 deployment_version = '20190308132800'
-
-
-def test_hosts_file(host):
-    f = host.file('/etc/hosts')
-
-    assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
 
 
 def test_app_home(host):
@@ -30,8 +23,8 @@ def test_app_home(host):
 
 def test_app_python(host):
     python = host.file(
-        '/home/%s/.pyenv/versions/%s/bin/python3.6'
-        % (app_user, python_version))
+        '/home/%s/.pyenv/versions/%s/bin/python%s'
+        % (app_user, python_version, python_major_minor_version))
 
     assert python.exists
     assert python.is_file
@@ -97,8 +90,10 @@ def test_app_virtualenv_dir(host):
 
 
 def test_app_virtualenv_python(host):
-    python = host.file('/home/%s/deployments/%s/virtualenv/bin/python3.6'
-                       % (app_user, deployment_version))
+    python = host.file('/home/%s/deployments/%s/virtualenv/bin/python%s'
+                       % (app_user,
+                          deployment_version,
+                          python_major_minor_version))
 
     assert python.exists
     assert python.user == app_user
@@ -118,3 +113,41 @@ def test_app_requirements(host):
         % (app_user, deployment_version))
 
     assert 'OWSLib' in pip_packages
+
+
+def test_supervisor_configuration(host):
+    # Does not apply to systemd hosts
+    if host.system_info.codename != "trusty":
+        return
+
+    config = host.file('/etc/supervisor/conf.d/pycsw.conf')
+
+    assert config.exists
+    assert config.is_file
+    assert config.mode == 0o644
+    assert config.user == 'root'
+    assert config.group == 'root'
+
+
+def test_systemd_configuration(host):
+    # Does not apply to supervisor hosts
+    if host.system_info.codename == "trusty":
+        return
+
+    config = host.file('/etc/systemd/system/pycsw-load.service')
+
+    assert config.exists
+    assert config.is_file
+    assert config.mode == 0o644
+    assert config.user == 'root'
+    assert config.group == 'root'
+
+
+def test_crontab_configuration(host):
+    config = host.file('/etc/cron.d/%s' % app_user)
+
+    assert config.exists
+    assert config.is_file
+    assert config.mode == 0o644
+    assert config.user == 'root'
+    assert config.group == 'root'
