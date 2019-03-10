@@ -10,14 +10,18 @@
   become_user: "{{ python_app_user }}"
   register: git_app
 
-- name: determine virtualenv command
-  set_fact:
-    virtualenv_command: "{{ (python_app_python_version[0] == '3') | ternary('pyvenv', 'virtualenv') }}"
+# - name: determine virtualenv command
+#   set_fact:
+#     virtualenv_command: "{{ (python_app_python_version[0] == '3') | ternary('pyvenv', 'virtualenv') }}"
+
+- debug:
+    msg: virtualenv_command={{ virtualenv_command }}
+  when: debug is defined
 
 - name: install app dependencies into virtualenv
   pip: >-
     virtualenv={{ python_app_deployment_dir }}/virtualenv
-    virtualenv_command={{ python_app_python_bin }}/{{ virtualenv_command }}
+    virtualenv_command={{ python_app_python_bin }}/virtualenv
     requirements={{ python_app_deployment_dir }}/src/{{ python_app_requirements_txt }}
     umask=0022
     state=present

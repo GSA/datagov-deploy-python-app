@@ -1,6 +1,10 @@
 ---
 - name: install os packages
-  apt: name={{ ['git', python_app_os_packages] | flatten }} state=present
+  apt: name={{ [role_packages, python_app_os_packages] | flatten }} state=present
+  vars:
+    role_packages:
+      - git
+      - python-setuptools  # Needed for ansible pip
 
 - name: create python app user
   user: name={{ python_app_user }} home={{ python_app_home }} system=yes state=present comment="a python application"
@@ -17,6 +21,17 @@
     pyenv_global: "{{ python_app_python_version }}"
     pyenv_python_versions: ["{{ python_app_python_version }}"]
     pyenv_virtualenvs: []
+
+# Having virtualenv in python 2 and 3 simplifies things a little
+- name: install virtualenv
+  pip: >-
+    executable={{ python_app_python_bin }}/pip
+    name=virtualenv
+    state=present
+    umask=0022
+  become: true
+  become_user: "{{ python_app_user }}"
+
 
 - name: create directory for python app deployments
   file: dest={{ python_app_home }}/deployments owner={{ python_app_user }} group={{ python_app_user }} mode=0755 state=directory

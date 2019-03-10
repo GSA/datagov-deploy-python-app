@@ -102,10 +102,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7",
-                "sha256:993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"
+                "sha256:59b7658e26ca9c7339e00f8f4636cdfe59d34fa37b9b04f6f9e9926b3cece1a5",
+                "sha256:b26104d6835d1f5e49452a26eb2ff87fe7090b89dfcaee5ea2212697e1e1d7ae"
             ],
-            "version": "==2018.11.29"
+            "version": "==2019.3.9"
         },
         "cffi": {
             "hashes": [
@@ -235,11 +235,11 @@
         },
         "git-url-parse": {
             "hashes": [
-                "sha256:0ae889a7fd7718c6409c3da5c8166efc2e41ea135c9667f2d762e76f39fc84bc",
-                "sha256:5817358173e9c41200da5750ca5cf9d1d3283d93d804f7e55613c1277e188060",
-                "sha256:8ed5a1ed3b19f9536a2f341882226beda359bc91f8b1ce3459ab9026afb637df"
+                "sha256:5e822cb10b01f73a717d97924287dc569352d15b5cc9c0650db7cc053c4da293",
+                "sha256:b06ee4850c070d6ad22f307a47c7ebff2cc3cdaeb56d35da8decb22917d9981f",
+                "sha256:d2553562415fed02893bd4a797864a6dfe63041ab0a61a15bacaf2fc9e71eecc"
             ],
-            "version": "==1.2.0"
+            "version": "==1.2.1"
         },
         "idna": {
             "hashes": [

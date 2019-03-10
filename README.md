@@ -105,7 +105,7 @@ List of supervisor programs to restart after a deployment.
 
 Pipenv creates a virtualenv for you and installs the python dependencies.
 
-    $ pipenv install
+    $ pipenv install --dev
 
 Then you can run commands with pipenv.
 
