@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/GSA/datagov-deploy-python-app.svg?style=svg)](https://circleci.com/gh/GSA/datagov-deploy-python-app)
+
 # datagov-deploy-python-app
 
 Deploys a Python based application in [12 factor](https://12factor.net/)
