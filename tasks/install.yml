@@ -11,13 +11,16 @@
 - name: install supervisor configuration
   template: >-
     src={{ python_app_supervisor_conf }}
-    dest=/etc/supervisor/conf.d/{{ python_app_user }}
+    dest=/etc/supervisor/conf.d/{{ python_app_user }}.conf
     owner=root
     group=root
     mode=0644
-  when:
-    - python_app_supervisor_conf is defined
-    - ansible_distribution_release == "trusty"
+  when: python_app_supervisor_conf is defined
+  notify: reload supervisor
+
+- name: remove supervisor configuration
+  file: path=/etc/supervisor/conf.d/{{ python_app_user }}.conf state=absent
+  when: python_app_supervisor_conf is not defined
   notify: reload supervisor
 
 - name: install crontab for python app
@@ -28,3 +31,7 @@
     group=root
     mode=0644
   when: python_app_crontab is defined
+
+- name: remove crontab for python app
+  file: dest=/etc/cron.d/{{ python_app_user }} state=absent
+  when: python_app_crontab is not defined

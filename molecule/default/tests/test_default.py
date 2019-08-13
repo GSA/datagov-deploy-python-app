@@ -118,3 +118,9 @@ def test_app_requirements(host):
         % (app_user, deployment_version))
 
     assert 'OWSLib' in pip_packages
+
+
+def test_supervisor_conf(host):
+    conf = host.file('/etc/supervisor/conf.d/app.conf')
+
+    assert conf.exists

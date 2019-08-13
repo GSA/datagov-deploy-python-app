@@ -90,6 +90,12 @@ deployments.
 List of OS packages that are needed by your application.
 
 
+#### `python_app_supervisor_conf` string
+
+Path to your supervisor configuration. This should probably be prefixed with
+your playbook directory, e.g. `{{ playbook_dir }}/files/supervisor.conf`.
+
+
 #### `python_app_supervisor_programs` list (default: [])
 
 List of supervisor programs to restart after a deployment.
