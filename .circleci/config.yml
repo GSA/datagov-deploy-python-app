@@ -11,11 +11,11 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-pipenv-{{ checksum "Pipfile.lock" }}
-            - v1-pipenv-
+            - v2-pipenv-{{ checksum "Pipfile.lock" }}
+            - v2-pipenv-
       - run: pipenv sync --dev
       - save_cache:
-          key: v1-pipenv-{{ checksum "Pipfile.lock" }}
+          key: v2-pipenv-{{ checksum "Pipfile.lock" }}
           paths:
             - .venv
       - setup_remote_docker
@@ -28,13 +28,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-pipenv-{{ checksum "Pipfile.lock" }}
-            - v1-pipenv-
+            - v2-pipenv-{{ checksum "Pipfile.lock" }}
+            - v2-pipenv-
       - run:
           name: install dependencies
           command: pipenv sync --dev
       - save_cache:
-          key: v1-pipenv-{{ checksum "Pipfile.lock" }}
+          key: v2-pipenv-{{ checksum "Pipfile.lock" }}
           paths:
             - .venv
       - run: sudo npm install -g snyk
